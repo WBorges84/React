@@ -15,14 +15,16 @@ function EditarCliente(props){
   const db = firebase.firestore();
 
 useEffect(() =>{
-        firebase.firestore().collection('clientes').doc(props.match.params.id).get().then((resiltado) => {
-            
+        firebase.firestore().collection('clientes').doc(props.match.params.id).get().then((resultado) => {
+         setNome(resultado.data().nome);
+         setEmail(resultado.data().email);
+         setFone(resultado.data().fone);   
         })
 
 },[] )
 
 
-  function cadastrarCliente(){
+  function AlterarCliente(){
 if (nome.length === 0) {
   setMensagem('Insira um nome.');
     
@@ -33,7 +35,7 @@ if (nome.length === 0) {
   
 }
 
-    db.collection('clientes').add({
+    db.collection('clientes').doc(props.match.params.id).update({
       nome: nome,
       email: email,
       fone: fone
@@ -52,24 +54,29 @@ if (nome.length === 0) {
         
         <div className="offset-lg-3 col-lg-6">  
           <form>
-            <h1>Novo cliente</h1>
+            <h1>Editar cliente</h1>
+            <div className="mb-3">
+              <label htmlFor="exampleInputEmail1" className="form-label">Código</label>
+              <input type="text" value={props.match.params.id} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
+            </div>
+
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">Nome</label>
-              <input onChange={(e) => setNome(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+              <input onChange={(e) => setNome(e.target.value)} type="text" value={nome} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
             </div>
 
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">E-mail</label>
-              <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+              <input onChange={(e) => setEmail(e.target.value)} type="email" value={email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
             </div>
 
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">Fone</label>
-              <input onChange={(e) => setFone(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+              <input onChange={(e) => setFone(e.target.value)} type="text" value={fone} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
             </div>
             <div className="text-center">
               <Link to="/app/home" className="btn btn-outline-primary btn-acao">Cancelar</Link>
-              <button onClick={cadastrarCliente} type="button" className="btn btn-primary btn-acao">Salvar</button>
+              <button onClick={AlterarCliente} type="button" className="btn btn-primary btn-acao">Salvar</button>
             </div>
         {mensagem.length > 0 ? <div className="alert alert-danger mt-2" role="alert">{mensagem}</div> : null}
         {sucesso === 'S' ? <Redirect to='/app/home'/> : null}
