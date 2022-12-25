@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link, Redirect}  from 'react-router-dom';
 import './login.css';
 
 import firebase from '../Config/firebase';
 import 'firebase/auth';
+
+import { AuthContext } from '../Context/auth';
 
 
 function Login(){
@@ -11,13 +13,18 @@ function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [sucesso, setSucesso] = useState('');
+    const {setLogado} = useContext(AuthContext);
 
     function LoginUsuario(){
       firebase.auth().signInWithEmailAndPassword(email, senha)
         .then(function(firebaseUser){
+          localStorage.setItem("logado", "S");
+          setLogado(true);
           setSucesso('S');
         })
         .catch(function(error){
+          localStorage.setItem("logado", "N");
+          setLogado(false);
           setSucesso('N');
         });
     }   

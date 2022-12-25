@@ -21,7 +21,7 @@ useEffect(() =>{
          setFone(resultado.data().fone);   
         })
 
-},[] )
+},[props.match.params.id] )
 
 
   function AlterarCliente(){

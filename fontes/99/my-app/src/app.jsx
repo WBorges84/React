@@ -1,5 +1,6 @@
-import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import React, { useContext } from 'react';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import { AuthContext } from './app/Context/auth.jsx';
 
 /* Paginas */
 import Site from './site/site.jsx';
@@ -11,14 +12,29 @@ import NovoCliente from './app/NovoCliente/novocliente';
 import editarCliente from './app/EditarCliente/editarCliente';
 
 function App(){
+
+const {logado} = useContext(AuthContext);
+
+  function SecureRoute({...params}){
+    if (!logado) {
+      return <Redirect to="/app"/>
+    }else{
+    return <Route {...params} />
+    }
+
+  }
+
     return <BrowserRouter>
-    <Route exact path='/' component={Site} />    
-    <Route exact path='/app' component={Login} />    
-    <Route exact path='/app/novaconta' component={NovaConta} />    
-    <Route exact path='/app/resetsenha' component={ResetSenha} />    
-    <Route exact path='/app/home' component={Home} />    
-    <Route exact path='/app/novocliente' component={NovoCliente} />
-    <Route exact path='/app/editarCliente/:id' component={editarCliente} />
+    <Switch>
+      <Route exact path='/' component={Site} />    
+      <Route exact path='/app' component={Login} />    
+      <Route exact path='/app/novaconta' component={NovaConta} />    
+      <Route exact path='/app/resetsenha' component={ResetSenha} /> 
+
+      <SecureRoute exact path='/app/home' component={Home} />    
+      <SecureRoute exact path='/app/novocliente' component={NovoCliente} />
+      <SecureRoute exact path='/app/editarCliente/:id' component={editarCliente} />
+    </Switch>   
    </BrowserRouter>;
   }
  
