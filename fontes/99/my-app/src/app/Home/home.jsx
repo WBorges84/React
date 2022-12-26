@@ -9,6 +9,9 @@ import 'firebase/firestore';
 
 import SweetAlert from "react-bootstrap-sweetalert";
 
+import clientesPDF from "../Reports/Clientes/clietes";
+
+import FontAwesome from "react-fontawesome";
 
 function Home(){
 
@@ -60,14 +63,15 @@ function Home(){
       <div className='container-fluid titulo'>
         <h1>Cadastro de Clientes</h1>
         <div className="row">
-          <div className="col-4">
-          <Link to='/app/novocliente' className="btn btn-primary mb-3" type="button"><i className="fas fa-plus"/> Cliente</Link>
+          <div className="col-4"> 
+          <Link to='/app/novocliente' className="btn btn-primary mb-3 btn-click" type="button"><i className="fas fa-plus"/> Cliente</Link>
+          <button onClick={(e) => clientesPDF(clientes)} className="btn btn-danger mb-3" type="button" id="button-addon2"><i className="btn-click"><i className="far fa-file-pdf" /></i>Gerar PDF</button>
           </div>
 
           <div className="col-8">
           <div className="input-group mb-3">
             <input onChange={(e) => setTexto(e.target.value)} type="text" className="form-control" placeholder="Pesquisar por nome" aria-describedby="button-addon2"/>
-            <button onClick={(e) => setBusca(texto)} className="btn btn-primary" type="button" id="button-addon2"><i className="fas fa-search"></i> Pesquisar</button>
+            <button onClick={(e) => setBusca(texto)} className="btn btn-primary" type="button" id="button-addon2"><i className="fas fa-search"></i>Pesquisar</button>
           </div>
           </div>
 
