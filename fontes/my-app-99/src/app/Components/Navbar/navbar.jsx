@@ -27,7 +27,7 @@ function Navbar(){
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/app/home" className="nav-link" aria-current="page" >Home</Link>
+              <Link to="#" className="nav-link" aria-current="page" >Home</Link>
             </li>
             <li className="nav-item">
             <Link to="/app/novocliente" className="nav-link" aria-current="page" >Novo Cliente</Link>

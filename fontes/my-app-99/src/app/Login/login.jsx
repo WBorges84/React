@@ -2,8 +2,7 @@ import React, {useState, useContext} from 'react';
 import {Link, Redirect}  from 'react-router-dom';
 import './login.css';
 import {AuthContext} from '../Context/auth';
-
-import firebase from '../Config/firebase';
+import firebase from '../Config/firebase/app';
 import 'firebase/auth';
 
 

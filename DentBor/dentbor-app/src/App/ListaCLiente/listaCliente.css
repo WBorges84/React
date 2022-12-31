@@ -1,0 +1,14 @@
+.btn-voltar{
+    margin: 0 30px;
+    height: auto;
+
+}
+    
+
+.btn-delete{
+    color: red;
+}
+
+.btn-editar{
+    color: cornflowerblue;
+}
